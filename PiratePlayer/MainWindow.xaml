@@ -1,0 +1,24 @@
+﻿<Window x:Class="PiratePlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pirate Player" Loaded="WindowLoaded" Icon="/PiratePlayer;component/Pirate.ico" WindowStartupLocation="Manual" SizeToContent="Height">
+    <Grid ShowGridLines="true" KeyUp="ListViewKeyup">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBox VerticalAlignment="Center" FocusManager.IsFocusScope="True" Grid.ColumnSpan="2" Name="SearchTextBox" FontSize="20" Text="{Binding Path=SearchFilter.Value, UpdateSourceTrigger=PropertyChanged}" />
+        
+        <ListView Grid.Row="1" ItemsSource="{Binding Shows.Value}" MouseDoubleClick="ListViewDoubleClick" FontSize="20">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="File" Width="600" DisplayMemberBinding="{Binding File.Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
