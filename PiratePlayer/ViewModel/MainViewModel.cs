@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using Codeplex.Reactive;
-using PiratePlayer.Utils;
+using PiratePlayer.Extensions;
+using PiratePlayer.Model;
 
-namespace PiratePlayer
+namespace PiratePlayer.ViewModel
 {
 	public class MainViewModel
 	{
 		private readonly DirectoryInfo _directoryToMonitor;
+		private readonly string[] _fileFilters;
 
 		public IEnumerable<Episode> AllShows { get; private set; }
 		public ReactiveProperty<IEnumerable<Episode>> Shows { get; private set; }
@@ -20,10 +23,12 @@ namespace PiratePlayer
 		public MainViewModel()
 		{
 			_directoryToMonitor = new DirectoryInfo(Properties.Settings.Default.DirectoryToObserve);
-			AllShows = LoadShows();
+			_fileFilters = Properties.Settings.Default.FileFilters.Split(' ');
+
+			LoadShows();
 
 			Observable.Interval(TimeSpan.FromSeconds(5))
-				.Subscribe(_ => AllShows = LoadShows());
+				.Subscribe(_ => LoadShows());
 
 			SearchFilter = new ReactiveProperty<string>();
 			Shows = SearchFilter
@@ -34,19 +39,17 @@ namespace PiratePlayer
 
 		private IEnumerable<Episode> Filter(string filter)
 		{
-			if (string.IsNullOrWhiteSpace(filter))
-				return AllShows;
-
-			var filterParts = filter.Split(' ');
-
 			return from s in AllShows
-			       where filterParts.All(x => s.File.Name.SearchFinds(x))
+			       where 
+					string.IsNullOrWhiteSpace(filter) ||
+					filter.Trim().Split(' ').All(x => s.File.Name.SearchFinds(x))
+				   orderby s.File.LastWriteTime descending 
 			       select s;
 		}
 
-		private IEnumerable<Episode> LoadShows()
+		private void LoadShows()
 		{
-			return GetFiles(_directoryToMonitor.ToString(), new[] {"*.avi", "*.mp4"}, SearchOption.AllDirectories)
+			AllShows = GetFiles(_directoryToMonitor.ToString(), _fileFilters, SearchOption.AllDirectories)
 				.Select(x => new Episode(new FileInfo(x))).ToList();
 		}
 
@@ -60,7 +63,15 @@ namespace PiratePlayer
 			if (episode == null || episode.File == null || !episode.File.Exists)
 				return;
 
-			Process.Start(episode.File.ToString());
+			try
+			{
+				Process.Start(episode.File.ToString());
+			}
+			catch (Win32Exception e)
+			{
+				if (!e.IsCancelled())
+					throw;
+			}
 		}
 	}
 }

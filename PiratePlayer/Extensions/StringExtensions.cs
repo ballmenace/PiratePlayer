@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PiratePlayer.Utils
+namespace PiratePlayer.Extensions
 {
     public static class StringExtensions
     {

@@ -1,8 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using PiratePlayer.Utils;
+using PiratePlayer.Extensions;
+using PiratePlayer.Model;
+using PiratePlayer.ViewModel;
 
-namespace PiratePlayer
+namespace PiratePlayer.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

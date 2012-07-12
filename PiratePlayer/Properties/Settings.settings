@@ -5,5 +5,8 @@
     <Setting Name="DirectoryToObserve" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\andreas\Downloads</Value>
     </Setting>
+    <Setting Name="FileFilters" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*.mkv *.avi *.wmv</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

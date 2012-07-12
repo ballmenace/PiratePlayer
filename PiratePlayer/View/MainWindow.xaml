@@ -1,0 +1,26 @@
+﻿<Window x:Class="PiratePlayer.View.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Title="Pirate Player" Loaded="WindowLoaded" Icon="/PiratePlayer;component/Pirate.ico" WindowState="Maximized" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+	
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<TextBox VerticalAlignment="Center" FocusManager.IsFocusScope="True" Grid.ColumnSpan="2" Name="SearchTextBox" Text="{Binding Path=SearchFilter.Value, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FontStyle}"/>
+
+		<ListView Grid.Row="1" ItemsSource="{Binding Shows.Value}" MouseDoubleClick="ListViewDoubleClick" Style="{StaticResource FontStyle}" KeyUp="ListViewKeyup">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="File" DisplayMemberBinding="{Binding File.Name}" />
+					<GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+</Window>

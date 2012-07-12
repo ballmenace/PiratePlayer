@@ -34,5 +34,17 @@ namespace PiratePlayer.Properties {
                 this["DirectoryToObserve"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("*.mkv *.avi *.wmv")]
+        public string FileFilters {
+            get {
+                return ((string)(this["FileFilters"]));
+            }
+            set {
+                this["FileFilters"] = value;
+            }
+        }
     }
 }
