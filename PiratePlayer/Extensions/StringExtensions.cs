@@ -9,9 +9,9 @@ namespace PiratePlayer.Extensions
             return source.IndexOf(toCheck, comp) >= 0;
         }
 
-        public static bool SearchFinds(this string source, string search)
+        public static bool ContainsIgnoreCase(this string source, string value)
         {
-            return source.Contains(search.Trim(), StringComparison.OrdinalIgnoreCase);
+            return source.Contains(value.Trim(), StringComparison.OrdinalIgnoreCase);
         }
     }
 }

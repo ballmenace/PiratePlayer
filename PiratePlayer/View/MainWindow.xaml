@@ -12,15 +12,13 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<TextBox VerticalAlignment="Center" FocusManager.IsFocusScope="True" Grid.ColumnSpan="2" Name="SearchTextBox" Text="{Binding Path=SearchFilter.Value, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FontStyle}"/>
+		<TextBox VerticalAlignment="Center" FocusManager.IsFocusScope="True" Grid.ColumnSpan="2" Name="SearchTextBox" Text="{Binding Path=SearchTerm.Value, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FontStyle}" KeyUp="SearchTextBoxKeyUp" />
 
-		<ListView Grid.Row="1" ItemsSource="{Binding Shows.Value}" MouseDoubleClick="ListViewDoubleClick" Style="{StaticResource FontStyle}" KeyUp="ListViewKeyup">
-			<ListView.View>
-				<GridView>
-					<GridViewColumn Header="File" DisplayMemberBinding="{Binding File.Name}" />
-					<GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" />
-				</GridView>
-			</ListView.View>
-		</ListView>
+		<DataGrid Grid.Row="1" ItemsSource="{Binding Episodes}" MouseDoubleClick="ListViewDoubleClick" Style="{StaticResource FontStyle}" KeyUp="ListViewKeyup" Name="EpisodeList" AutoGenerateColumns="False" IsReadOnly="True"> 
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="File" Binding="{Binding File.Name}"/>
+				<DataGridTextColumn Header="Age" Binding="{Binding PrettyAge}" SortMemberPath="Age"/>
+			</DataGrid.Columns>
+		</DataGrid>
 	</Grid>
 </Window>

@@ -1,11 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application StartupUri="View\MainWindow.xaml" 
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="PiratePlayer.c__projects_pirateplayer_pirateplayer_app_xaml">
-	<Application.Resources>
-		<Style x:Key="FontStyle" TargetType="Control">
-			<Setter Property="FontSize" Value="20"/>
-		</Style>
-	</Application.Resources>
+<Application StartupUri="View\MainWindow.xaml" p1:Class="PiratePlayer.c__projects_pirateplayer_pirateplayer_app_xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <Application.Resources>
+    <Style p1:Key="FontStyle" TargetType="Control">
+      <Setter Property="FontSize" Value="20" />
+    </Style>
+  </Application.Resources>
 </Application>
